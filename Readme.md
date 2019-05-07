@@ -1,10 +1,17 @@
 # Tổ chức quy hoạch mạng viễn thông
+
 Học kì 20182
+
 Đại học Bách khoa Hà Nội
+
 Giảng viên: TS. Trần Thị Ngọc Lan
+
 Nhóm sinh viên:
+
 Nguyễn Xuân Lưu 20152346
+
 Nguyễn Phương Nam 20152577
+
 Bùi Thị Ngọc Ánh 20150211
 
 
@@ -23,7 +30,7 @@ IDE sử dụng: PyCharm 3.1
 
 Ngày hoàn thành 7, tháng 5, 2019
 
-Hướng dẫn sử dụng
+##Hướng dẫn sử dụng
 
 ## Chỉnh sửa thông số hệ thống.
 
@@ -40,6 +47,7 @@ w_ew = 8 # Trọng số ngưỡng của các nhóm trong cây truy nhập của 
 
 ListPosition = InitialTopo.Global_Init_Topo_Fix_Position(MAX,NumNode,False)
 # False/ True: Nếu chọn True, toàn bộ các bước trong tạo topology mạng sẽ được giám sát và hiển thị
+# Nếu muốn các nút tạo ra ở vị trí ngẫu nhiên, tiến hành đỗi hàm Global_Init_Topo_Fix_Position thành hàm Global_Init_Topo, giữ nguyên tham số
 
 ListMentor = MENTOR.MenTor(ListPosition,MAX,C,w,RadiusRatio,5,False)
 # 5: Là số giới hạn nút đầu cuối của thuật toán MENTOR. Khi một nút Backbone tìm thấy số lượng nút đầu cuối đạt tới giới hạn. Nó ngừng việc quét tìm nút đầu cuối. Nếu cài đặt giá trị này bằng 0 thì xem như không có giới hạn số lượng nút đầu cuối.
@@ -49,5 +57,38 @@ ListFinish = EsauWilliam.Esau_William(ListMentor,w_ew,MAX,False)
 # False/ True: Bật tắt giám sát thuật toán
 ```
 
+### Chỉnh sửa dung lượng liên kết thực hiện tại file InitialTopo.py
+```
+###
 
+
+###    Cấu hình mạng
+
+
+###
+    
+    #Cài đặt để các nút thứ i và i+3 có dung lượng liên kết bằng 1, giữa i và i+4 bằng 3, giữa i và i+6 bằng 2
+    
+    for i in range(NumNode):
+        if i + 3 < NumNode:
+            set_traffic0(i, i + 3, 1)
+        if i + 4 < NumNode:
+            set_traffic0(i, i + 4, 3)
+        if i + 6 < NumNode:
+            set_traffic0(i, i + 6, 2)
+    
+    #Cài đặt để liên kết (10,34) dung lượng bằng 10; (35,67) bằng 14; (48,70) bằng 14; (18,76) bằng 10; (25,73) bằng 14
+    set_traffic(10, 34, 10)
+    set_traffic(35, 67, 14)
+    set_traffic(48, 70, 14)
+    set_traffic(18, 76, 10)
+    set_traffic(25, 73, 14)
+
+###
+
+###    Kết Thúc Cấu hình mạng
+
+###
+
+```
 
