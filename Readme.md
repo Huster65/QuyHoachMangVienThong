@@ -20,7 +20,7 @@ Bùi Thị Ngọc Ánh 20150211
 1. Sử dụng giải thuật MENTOR để tìm nút backbone và các nút truy nhập tương ứng với nút Backbone. Biết W=2, R=0,35. dung lượng liên kết C=12. Biết lưu lượng giữa nút i và i+3 là 1, Lưu lượng giữa nút i và i+4 là 3. Lưu lượng giữa nút i và i +6 bằng 2, Lưu lượng giữa nút 10 và nút 34 là 10. Lưu lượng giữa nút 35 và 67 là 14, lưu lượng giữa nút 48 và 70 là 14, lưu lượng giữa nút 18 và 76 là 10,
 lưu lượng giữa nút 25 và 73 là 14
 
-2.Sử dụng giải thuật E-W để tính cây truy nhập. Với giả sử rằng W=8, W8xi =2 với i=1..10 còn w khác =1. Đưa kết quả ra màn hình.
+2. Sử dụng giải thuật E-W để tính cây truy nhập. Với giả sử rằng W=8, W8xi =2 với i=1..10 còn w khác =1. Đưa kết quả ra màn hình.
 
 3. Hiệu chỉnh kết quả cho trường hợp giới hạn số nút trên cây truy nhập là 5
 
