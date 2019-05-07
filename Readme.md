@@ -34,6 +34,8 @@ Ngày hoàn thành 7, tháng 5, 2019
 
 ## Hướng dẫn sử dụng
 
+Sử dụng PyCharm import mã nguồn chương trình, thực hiện chạy file Main.py.
+
 ## Chỉnh sửa thông số hệ thống.
 
 ### Chỉnh sửa các tham số thực hiện tại file Main.py
