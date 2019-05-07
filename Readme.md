@@ -32,7 +32,7 @@ IDE sử dụng: PyCharm 3.1
 
 Ngày hoàn thành 7, tháng 5, 2019
 
-##Hướng dẫn sử dụng
+## Hướng dẫn sử dụng
 
 ## Chỉnh sửa thông số hệ thống.
 
