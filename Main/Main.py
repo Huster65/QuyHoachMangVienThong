@@ -27,9 +27,3 @@ ListFinish = EsauWilliam.Esau_William(ListMentor,w_ew,MAX,5,False)
 Node.printList2D(ListFinish)
 Node.matplot_total(ListFinish,MAX)
 Node.plt.show()
-
-
-
-
-
-
