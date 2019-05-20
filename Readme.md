@@ -28,7 +28,7 @@ lưu lượng giữa nút 25 và 73 là 14
 
 Ngôn ngữ chương trình Python 3
 
-IDE sử dụng: PyCharm 3.1
+IDE sử dụng: PyCharm 2019.1
 
 Ngày hoàn thành 7, tháng 5, 2019
 
