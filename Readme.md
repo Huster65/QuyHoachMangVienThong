@@ -48,17 +48,18 @@ C = 12 # Dung lượng 1 liên kết
 w = 2  # Trọng số lưu lượng chuẩn hóa dùng để xét nút backbone của thuật toán MENTOR
 w_ew = 8 # Trọng số ngưỡng của các nhóm trong cây truy nhập của thuật toán Esau Williams
 
-
-ListPosition = InitialTopo.Global_Init_Topo_Fix_Position(MAX,NumNode,False)
+ListPosition = InitialTopo.Global_Init_Topo(MAX,NumNode,False)
+#ListPosition = InitialTopo.Global_Init_Topo_Fix_Position(MAX,NumNode,False)
 # False/ True: Nếu chọn True, toàn bộ các bước trong tạo topology mạng sẽ được giám sát và hiển thị
-# Nếu muốn các nút tạo ra ở vị trí ngẫu nhiên, tiến hành đỗi hàm Global_Init_Topo_Fix_Position thành hàm Global_Init_Topo, giữ nguyên tham số
 
-ListMentor = MENTOR.MenTor(ListPosition,MAX,C,w,RadiusRatio,5,False)
-# 5: Là số giới hạn nút đầu cuối của thuật toán MENTOR. Khi một nút Backbone tìm thấy số lượng nút đầu cuối đạt tới giới hạn. Nó ngừng việc quét tìm nút đầu cuối. Nếu cài đặt giá trị này bằng 0 thì xem như không có giới hạn số lượng nút đầu cuối.
+ListMentor = MENTOR.MenTor(ListPosition,MAX,C,w,RadiusRatio,0,False)
+# 5: Là số giới hạn nút đầu cuối của thuật toán MENTOR.
+# Khi một nút Backbone tìm thấy số lượng nút đầu cuối đạt của một mạng truy nhập tới giới hạn. Nó ngừng việc quét tìm nút đầu cuối. Nếu cài đặt giá trị này bằng 0 thì xem như không có giới hạn số lượng nút đầu cuối.
 # False/ True: Bật tắt giám sát thuật toán
 
-ListFinish = EsauWilliam.Esau_William(ListMentor,w_ew,MAX,False)
+ListFinish = EsauWilliam.Esau_William(ListMentor,w_ew,MAX,5,False)
 # False/ True: Bật tắt giám sát thuật toán
+# 5: Giới hạn số nút trên cây truy nhập. Nếu đặt bằng 0 thì không giới hạn.
 ```
 
 ### Chỉnh sửa dung lượng liên kết thực hiện tại file InitialTopo.py
