@@ -51,7 +51,7 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
 
     # Dựng hàm cập nhật các nút đầu cuối cho các nút backbone
 
-    DEBUG_UpdateTerminalNode = 1
+    DEBUG_UpdateTerminalNode = 0
 
     def updateTerminalNode(_ListPosition, _ListMentor, _centerNode):
 
@@ -64,13 +64,14 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
         ListBackbone.append(_centerNode)
 
         def check_non_exist(index,listbackbone,listmentor):
-            for i in listbackbone:
-                print(i.get_name(),end =' ')
-            print()
-            for i in listmentor:
-                for j in i:
-                    print(j.get_name(), end=' ')
-            print()
+            if DEBUG_UpdateTerminalNode:
+                for i in listbackbone:
+                    print(i.get_name(),end =' ')
+                print()
+                for i in listmentor:
+                    for j in i:
+                        print(j.get_name(), end=' ')
+                print()
             for i in listbackbone:
                 if i.get_name() == index:
                     if DEBUG_UpdateTerminalNode:
@@ -79,11 +80,12 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
             for i in listmentor:
                 for j in i:
                     if j.get_name() == index:
-                        print("in list mentor. no check any more")
+                        if DEBUG_UpdateTerminalNode:
+                            print("in list mentor. no check any more")
                         return False
             return True
 
-        Node.printList(_ListPosition)
+        #Node.printList(_ListPosition)
         for i in _ListPosition:
             i.set_distance(_centerNode)
             if DEBUG_UpdateTerminalNode:
@@ -102,15 +104,16 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
         ListBackbone.sort(key=sort_by_distance_to_backbone)
 
         if Limit > 0:
-            for i in ListBackbone:
-                print(i.get_name(),end =' ')
-            print()
+            if DEBUG_UpdateTerminalNode:
+                for i in ListBackbone:
+                    print(i.get_name(),end =' ')
+                print()
             if len(ListBackbone)-1 > Limit:
                 ListBackbone = ListBackbone[0:Limit+1]
-
-            for i in ListBackbone:
-                print(i.get_name(),end =' ')
-            print()
+            if DEBUG_UpdateTerminalNode:
+                for i in ListBackbone:
+                    print(i.get_name(),end =' ')
+                print()
 
 
 

@@ -7,7 +7,7 @@ import Node
 num_inf = math.inf
 num_ninf = -math.inf
 
-def Esau_William(ListMentor,w_ew,MAX,DeBug):
+def Esau_William(ListMentor,w_ew,MAX,Limit,DeBug):
 
     print("{:*<100}".format(''))
     print("Bước 3: Thuật toán Esau William tìm cây truy nhập")
@@ -22,7 +22,7 @@ def Esau_William(ListMentor,w_ew,MAX,DeBug):
 
         NumNode = len(ListPosition)
         if DeBug:
-            print("Số nút đầu cuối: {:<3}\n".format(NumNode))
+            print("Số nút đầu cuối: {:<3}\n".format(NumNode-1))
             for i in ListPosition:
                 print(i.get_name(), end=' ')
             print()
@@ -88,7 +88,9 @@ def Esau_William(ListMentor,w_ew,MAX,DeBug):
             node_des = ListPosition[index_des]
             node_src = ListPosition[index_src]
             sum_w = node_des.get_weight_of_group() + node_src.get_weight_of_group()
+            sum_size = node_des.get_group_size() + node_src.get_group_size()
             node_des.set_weight_of_group(sum_w)
+            node_des.set_group_size(sum_size)
 
             def check_node_exist(father):
                 for i in weightGroup:
@@ -116,9 +118,9 @@ def Esau_William(ListMentor,w_ew,MAX,DeBug):
                 index_m_child = find_index_node(m_child)
                 index_m_father = find_index_node(m_father)
 
-                if DeBug:
-                    print('Check destination group exist: ', m_father, check_node_exist(m_father))
-                    print('Check source group exist: ', m_child, check_node_exist(m_child))
+                #if DeBug:
+                    #print('Check destination group exist: ', m_father, check_node_exist(m_father))
+                    #print('Check source group exist: ', m_child, check_node_exist(m_child))
                 if check_node_exist(m_father) == False:
                     weightGroup.append([m_father])
                     update_node(m_father, m_child)
@@ -139,7 +141,8 @@ def Esau_William(ListMentor,w_ew,MAX,DeBug):
                             if i[j] == m_father:
                                 i.extend(k)
                                 for a in i:
-                                    ListPosition[find_index_node(a)].set_weight_of_group(node_des.get_weight_of_group())
+                                    ListPosition[find_index_node(a)].set_weight_of_group(sum_w)
+                                    ListPosition[find_index_node(a)].set_group_size(sum_size)
                                     ListPosition[find_index_node(a)].set_cost_to_center(node_des.get_cost_to_center())
                                     ListPosition[find_index_node(a)].set_group_node_to_center(node_des.get_group_node_to_center())
                                     #ListPosition[find_index_node(a)].printEW()
@@ -157,6 +160,19 @@ def Esau_William(ListMentor,w_ew,MAX,DeBug):
             node_oneself = ListPosition[find_index_node(oneself)]
             sum = node_next_connect.get_weight_of_group() + node_oneself.get_weight_of_group()
             return sum
+
+        def check_limit_size(next_connect,oneself):
+            if Limit == 0:
+                return True
+            else:
+                node_next_connect = ListPosition[find_index_node(next_connect)]
+                node_oneself = ListPosition[find_index_node(oneself)]
+                sum = node_next_connect.get_group_size()+node_oneself.get_group_size()
+                if sum <= Limit:
+                    return True
+                else:
+                    return False
+
 
         # Định nghĩa hàm cập nhật thỏa hiệp
 
@@ -248,34 +264,42 @@ def Esau_William(ListMentor,w_ew,MAX,DeBug):
 
             # Kiểm tra điều kiện tổng trọng số
 
-            if check_limit_weight(minthoahiep_next_connect_node.get_name(), minthoahiep_node.get_name()) <= w_ew:
-                if DeBug:
-                    print("Thỏa hiệp tại nút", minthoahiep_node.get_name(), "chấp nhận được. Ghép liên kết",
-                      minthoahiep_node.get_name(),
-                      minthoahiep_next_connect_node.get_name())
+            if check_limit_size(minthoahiep_next_connect_node.get_name(), minthoahiep_node.get_name()):
+
+                if check_limit_weight(minthoahiep_next_connect_node.get_name(), minthoahiep_node.get_name()) <= w_ew:
+                    if DeBug:
+                        print("Thỏa hiệp tại nút", minthoahiep_node.get_name(), "chấp nhận được. Ghép liên kết",
+                          minthoahiep_node.get_name(),
+                          minthoahiep_next_connect_node.get_name())
 
 
-                # Cập nhật tổng trọng số của nhánh và node nối trung tâm của nhánh
+                    # Cập nhật tổng trọng số của nhánh và node nối trung tâm của nhánh
 
-                ListPosition[find_index_node(minthoahiep_node.get_group_node_to_center())].remove_connect(ListPosition[0].get_name())
+                    ListPosition[find_index_node(minthoahiep_node.get_group_node_to_center())].remove_connect(ListPosition[0].get_name())
 
-                minthoahiep_node.set_connect(minthoahiep_next_connect_node.get_name())
-                minthoahiep_next_connect_node.set_connect(minthoahiep_node.get_name())
+                    minthoahiep_node.set_connect(minthoahiep_next_connect_node.get_name())
+                    minthoahiep_next_connect_node.set_connect(minthoahiep_node.get_name())
 
-                updateWG(minthoahiep_next_connect_node.get_name(),minthoahiep_node.get_name())
+                    updateWG(minthoahiep_next_connect_node.get_name(),minthoahiep_node.get_name())
 
-                # Cập nhật neighbor node và đường dẫn nối về trung tâm
+                else:
+                    if DeBug:
+                        print("Thỏa hiệp tại nút", minthoahiep_node.get_name(), "không chấp nhận được.",
+                              check_limit_weight(minthoahiep_next_connect_node.get_name(), minthoahiep_node.get_name()),
+                              ">", w_ew,
+                              "Bỏ liên kết",
+                              minthoahiep_node.get_name(),
+                              minthoahiep_next_connect_node.get_name())
+                    set_linkcost(link_cost, find_index_node(minthoahiep_node.get_name()),
+                                 find_index_node(minthoahiep_next_connect_node.get_name()), num_inf)
+
 
 
 
 
             else:
                 if DeBug:
-                    print("Thỏa hiệp tại nút", minthoahiep_node.get_name(), "không chấp nhận được.",
-                      check_limit_weight(minthoahiep_next_connect_node.get_name(), minthoahiep_node.get_name()), ">", w_ew,
-                      "Bỏ liên kết",
-                      minthoahiep_node.get_name(),
-                      minthoahiep_next_connect_node.get_name())
+                    print("Thỏa hiệp tại nút", minthoahiep_node.get_name(), "không chấp nhận được. Điều kiện giới hạn số nút trên cây không được thỏa mãn")
                 set_linkcost(link_cost,find_index_node(minthoahiep_node.get_name()),find_index_node(minthoahiep_next_connect_node.get_name()),num_inf)
 
 
@@ -291,9 +315,11 @@ def Esau_William(ListMentor,w_ew,MAX,DeBug):
                     for j in i:
                         print(j, end=' ')
                     print()
-
-        #Node.matplot_esau_william(ListPosition, MAX)
-        #Node.plt.show()
+        print("Các cây của nút backbone",ListPosition[0].get_name()," :")
+        for i in weightGroup:
+            print(i)
+        Node.matplot_esau_william(ListPosition, MAX)
+        Node.plt.show()
 
 
 

@@ -34,6 +34,7 @@ class Node:
     thoa_hiep = num_ninf
     cost_to_center = num_inf
     next_connect = 0
+    group_size = 1
 
 
     def __init__(self):
@@ -115,6 +116,12 @@ class Node:
 
     def get_group_node_to_center(self):
         return self.group_node_to_center
+
+    def set_group_size(self,s):
+        self.group_size = s
+
+    def get_group_size(self):
+        return self.group_size
 
     def get_weight_of_group(self):
         return self.weight_of_group

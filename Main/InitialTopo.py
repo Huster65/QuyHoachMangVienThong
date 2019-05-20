@@ -84,7 +84,7 @@ def Global_Init_Topo(MAX,NumNode,DeBug):
     weightes2 = []
     for i in range(1,11):
         weightes2.append(i*8)
-
+    print(weightes2);
     for i in ListPosition:
         if (i.get_name()) in weightes2:
             i.set_weight_ew(2)
@@ -192,7 +192,7 @@ def Global_Init_Topo_Fix_Position(MAX,NumNode,DeBug):
     weightes2 = []
     for i in range(1,11):
         weightes2.append(i*8)
-
+    print(weightes2);
     for i in ListPosition:
         if (i.get_name()) in weightes2:
             i.set_weight_ew(2)
