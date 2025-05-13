@@ -54,18 +54,20 @@ def Global_Init_Topo(MAX,NumNode,DeBug):
 
     for i in range(NumNode):
 
-        if i + 3 < NumNode:
-            set_traffic0(i, i + 3, 1)
-        if i + 4 < NumNode:
-            set_traffic0(i, i + 4, 3)
-        if i + 6 < NumNode:
-            set_traffic0(i, i + 6, 2)
+        if i + 14 < NumNode:
+            set_traffic0(i, i + 14, 1)
+        if i + 78 < NumNode:
+            set_traffic0(i, i + 78, 2)
+        if i + 38 < NumNode:
+            set_traffic0(i, i + 38, 1)
+        if i + 56 < NumNode:
+            set_traffic0(i, i + 56, 1)
 
-    set_traffic(10, 34, 10)
-    set_traffic(35, 67, 14)
-    set_traffic(48, 70, 14)
-    set_traffic(18, 76, 10)
-    set_traffic(25, 73, 14)
+    set_traffic(10, 28, 38)
+    set_traffic(32, 58, 36)
+    set_traffic(58, 62, 4)
+    set_traffic(48, 66, 3)
+    set_traffic(18, 32, 1)
 
     # for i in TrafficMatrix:
     #     for j in i:
@@ -192,7 +194,7 @@ def Global_Init_Topo_Fix_Position(MAX,NumNode,DeBug):
     weightes2 = []
     for i in range(1,11):
         weightes2.append(i*8)
-    print(weightes2);
+    print(weightes2)
     for i in ListPosition:
         if (i.get_name()) in weightes2:
             i.set_weight_ew(2)
