@@ -7,15 +7,6 @@ import math
 num_inf = math.inf
 num_ninf = -math.inf
 
-
-# Các cài đặt mặc định
-
-
-# Lớp mô hình hóa các nút
-# Thuộc Tính:
-#   Tọa độ x,y
-#   Khoảng cách tới nút trung tâm đang tạm xét (tính theo Đề các)
-#   Tên nút đánh từ 1 đến nút MAX
 class Node:
     name = 0
     x = 0
@@ -36,6 +27,8 @@ class Node:
     next_connect = 0
     group_size = 1
 
+    #kruskal
+    weight_kk = 1
 
     def __init__(self):
         self.ListConnect = []
@@ -97,6 +90,12 @@ class Node:
 
     def get_weight_ew(self):
         return self.weight_ew
+    
+    def get_length_list_connect(self):
+        return len(self.ListConnect)
+    
+    def get_weight_kk(self):
+        return self.weight_kk
 
     def set_thoahiep(self, t):
         self.thoa_hiep = t
@@ -229,7 +228,9 @@ def printInitialList(_list):
 
 def printMentorList(_list):
     for i in _list:
-        i.printMentor()
+        for j in i:
+            j.printMentor()
+        print("**********")
 
 def printEWList(_list):
     for i in range(1,len(_list)):
@@ -240,7 +241,7 @@ def printList2D(_list):
     for i in _list:
         for j in i:
             print(j.get_name(), end=' ')
-        print()
+      
 
 
 def find_index_node(m,ListPosition):
@@ -318,7 +319,8 @@ def matplot_esau_william(_list, MAX):
                  )
 
     for i in range(1, len(_list)):
-
+        print("_list[i].get_list_connect()")
+        print(_list[i].get_list_connect())
         for j in _list[i].get_list_connect():
             matplotconnectpoints(xpos, ypos, i, find_index_node(j, _list), _list)
 

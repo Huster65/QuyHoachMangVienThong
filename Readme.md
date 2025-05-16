@@ -1,19 +1,13 @@
 # Tổ chức quy hoạch mạng viễn thông
 
-Học kì 20182
+Học kì 20242
 
 Đại học Bách khoa Hà Nội
 
 Giảng viên: TS. Trần Thị Ngọc Lan
 
 Nhóm sinh viên:
-
-Nguyễn Xuân Lưu 20152346
-
-Nguyễn Phương Nam 20152577
-
-Bùi Thị Ngọc Ánh 20150211
-
+    Hoàng Minh Nhất - 20240234E
 
 ## Đề Tài: 
 Đề 1: Cho mạng gồm 100 nút. Khoảng cách giữa các nút được tính bằng khoảng cách đề các. Biết các nút được đặt một cách ngẫu nhiên trên mặt phẳng kích thước 1200x1200.

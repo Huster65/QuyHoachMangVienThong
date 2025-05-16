@@ -1,13 +1,12 @@
-# Thư viện
 import random
 import math
 import matplotlib.pyplot as plt
 import Node
+import updateTerminalNode
 
 num_inf = math.inf
 num_ninf = -math.inf
 
-# Các cài đặt mặc định
 
 def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
     ListMentor = []
@@ -53,83 +52,9 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
 
     DEBUG_UpdateTerminalNode = 0
 
-    def updateTerminalNode(_ListPosition, _ListMentor, _centerNode):
-
-        if DEBUG_UpdateTerminalNode:
-            print("Enter Update Terminal Node Function! ")
-            print("Node backbone", _centerNode.get_name())
-
-        # Kiểm tra khoảng cách các node so với node backbone
-        ListBackbone = []
-        ListBackbone.append(_centerNode)
-
-        def check_non_exist(index,listbackbone,listmentor):
-            if DEBUG_UpdateTerminalNode:
-                for i in listbackbone:
-                    print(i.get_name(),end =' ')
-                print()
-                for i in listmentor:
-                    for j in i:
-                        print(j.get_name(), end=' ')
-                print()
-            for i in listbackbone:
-                if i.get_name() == index:
-                    if DEBUG_UpdateTerminalNode:
-                        print("in list backbone. no check any more")
-                    return False
-            for i in listmentor:
-                for j in i:
-                    if j.get_name() == index:
-                        if DEBUG_UpdateTerminalNode:
-                            print("in list mentor. no check any more")
-                        return False
-            return True
-
-        #Node.printList(_ListPosition)
-        for i in _ListPosition:
-            i.set_distance(_centerNode)
-            if DEBUG_UpdateTerminalNode:
-                print("Check Distance Node", i.get_name(), " : ", i.get_distance())
-            if check_non_exist(i.get_name(),ListBackbone,_ListMentor):
-                if i.get_distance() <= RM:
-                    if DEBUG_UpdateTerminalNode:
-                        print("Node", i.get_name(), "is terminal node of Node center", _centerNode.get_name())
-                    ListBackbone.append(i)
-
-        # Xử lý giới hạn số nút đầu cuối của nút backbone
-
-        def sort_by_distance_to_backbone(m):
-            return  m.get_distance()
-
-        ListBackbone.sort(key=sort_by_distance_to_backbone)
-
-        if Limit > 0:
-            if DEBUG_UpdateTerminalNode:
-                for i in ListBackbone:
-                    print(i.get_name(),end =' ')
-                print()
-            if len(ListBackbone)-1 > Limit:
-                ListBackbone = ListBackbone[0:Limit+1]
-            if DEBUG_UpdateTerminalNode:
-                for i in ListBackbone:
-                    print(i.get_name(),end =' ')
-                print()
-
-
-
-        _ListMentor.append(ListBackbone)
-
-        for i in ListBackbone:
-            for j in _ListPosition:
-                if i.get_name() == j.get_name():
-                    _ListPosition.remove(j)
-
-        if DEBUG_UpdateTerminalNode:
-            print("Exit Update Terminal Node Function! ")
-
-
+    
     for i in ListBackboneType1:
-        updateTerminalNode(ListPosition, ListMentor, i)
+        updateTerminalNode.updateTerminalNode(ListPosition, ListMentor, i, DEBUG_UpdateTerminalNode, RM, Limit)
 
     del ListBackboneType1
     if DeBug:
@@ -151,7 +76,7 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
         print()
         print(
         "2.2. Đối với các nút còn lại, tiến hành tìm nút Backbone dựa trên giá trị thưởng, sau đó cập nhật cây truy nhập tương ứng với nút Backbone mới")
-        print()
+        
     center = Node.Node()
     iloop = 1
     while len(ListPosition) > 0:
@@ -190,7 +115,7 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
         if DeBug:
             print("MaxDistance = {:<6} & Max Weight: {:<3}".format(round(maxdc,2), maxw))
         for i in ListPosition:
-            i.set_award((0.5 * (maxdc - i.get_distance() / maxdc)) + (0.5 * i.get_traffic() / maxw))
+            i.set_award((0.5 * ((maxdc - i.get_distance()) / maxdc)) + (0.5 * i.get_traffic() / maxw))
             if i.get_award() > maxaward:
                 maxaward = i.get_award()
 
@@ -208,7 +133,7 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
                     print("---------------------")
                 if DeBug:
                     print("Cập nhật cây truy nhập cho nút backbone mới")
-                updateTerminalNode(ListPosition, ListMentor, e)
+                updateTerminalNode.updateTerminalNode(ListPosition, ListMentor, e, DEBUG_UpdateTerminalNode, RM, Limit)
                 if DeBug:
                     print("---------------------")
                     print("--- Danh sách các nút còn lại sau khi cập nhật cây truy nhập cho nút backbone mới ---")
