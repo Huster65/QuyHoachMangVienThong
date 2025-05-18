@@ -16,7 +16,7 @@ RadiusRatio = 0.3
 C = 12 
 w = 2 
 w_ew = 12 
-w_kk = 10000
+w_kk = 12
 debug = False
 
 traffic_matric = KruskalFunction.initMatricTraffic()
@@ -27,11 +27,11 @@ ListMentor = MENTOR.MenTor(ListPosition,MAX,C,w,RadiusRatio,0, debug)
 
 #ListFinish = EsauWilliam.Esau_William(ListMentor,w_ew,MAX,5, debug)
 
-ListFinish = Kruskal.Kruskal(ListMentor, MAX, traffic_matric, w_kk)
+ListFinish = Kruskal.Kruskal(ListMentor, MAX, traffic_matric, w_kk, debug)
 
 print("mentor list")
 Node.printMentorList(ListFinish)
 
 Node.printList2D(ListFinish)
-#Node.matplot_total(ListFinish,MAX)
-#Node.plt.show()
+Node.matplot_total(ListFinish,MAX)
+Node.plt.show()
