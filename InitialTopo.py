@@ -7,7 +7,7 @@ import Node
 def sortListPosition(m):
     return m.get_position_x()
 
-def Global_Init_Topo(MAX,NumNode,DeBug):
+def Global_Init_Topo(MAX,NumNode, DeBug):
     '''
 
     Bước 1: Dựng Topology mạng và tính toán lưu lượng tại từng nút mạng

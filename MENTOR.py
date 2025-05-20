@@ -115,7 +115,7 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
         if DeBug:
             print("MaxDistance = {:<6} & Max Weight: {:<3}".format(round(maxdc,2), maxw))
         for i in ListPosition:
-            i.set_award((0.5 * (maxdc - i.get_distance() / maxdc)) + (0.5 * i.get_traffic() / maxw))
+            i.set_award((0.5 * ((maxdc - i.get_distance()) / maxdc)) + (0.5 * i.get_traffic() / maxw))
             if i.get_award() > maxaward:
                 maxaward = i.get_award()
 
