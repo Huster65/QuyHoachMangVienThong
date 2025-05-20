@@ -51,10 +51,13 @@ def Kruskal (ListMentor, MAX, traffic_matric, w_kk, DeBug):
 
                     if(link_cost[i][j] == link_cost_member and check_circle):
 
+                        if DeBug:
+                            print("")
+
                         ListPosition[i].set_connect(ListPosition[j].get_name() )
                         ListPosition[j].set_connect(ListPosition[i].get_name() )
 
-        Node.matplot_esau_william(ListPosition, MAX)
+        Node.matplot_krukal(ListPosition, MAX)
         Node.plt.show()
 
     return ListMentor
