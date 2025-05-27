@@ -17,7 +17,7 @@ C = 12
 w = 2 
 w_ew = 12 
 w_kk = 12
-debug = False
+debug = True
 
 traffic_matric = KruskalFunction.initMatricTraffic()
 
@@ -25,12 +25,12 @@ ListPosition = InitialTopo.Global_Init_Topo(MAX, NumNode, debug)
 
 ListMentor = MENTOR.MenTor(ListPosition,MAX,C,w,RadiusRatio,0, debug)
 
-#ListFinish = EsauWilliam.Esau_William(ListMentor,w_ew,MAX,5, debug)
+#ListFinish = EsauWilliam.Esau_William(ListMentor,w_ew,MAX,0, debug)
 
-ListFinish = Kruskal.Kruskal(ListMentor, MAX, traffic_matric, w_kk, debug)
+ListFinish = Kruskal.Kruskal(ListMentor, MAX, traffic_matric, w_kk, 0, debug)
 
-print("mentor list")
-Node.printMentorList(ListFinish)
+# print("mentor list")
+# Node.printMentorList(ListFinish)
 
 Node.printList2D(ListFinish)
 Node.matplot_total(ListFinish,MAX)

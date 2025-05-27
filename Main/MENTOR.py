@@ -9,15 +9,18 @@ num_ninf = -math.inf
 
 
 def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
+
     ListMentor = []
-    '''
 
-    Bước 2: Tìm Nút Backbone và phân cây truy nhập dựa trên thuật toán MENTOR
+    if DeBug:
+        '''
 
-    '''
-    print("{:*<100}".format(''))
-    print("Bước 2: Tìm Nút Backbone và phân cây truy nhập dựa trên thuật toán MENTOR")
-    print("{:*<100}".format(''))
+        Bước 2: Tìm Nút Backbone và phân cây truy nhập dựa trên thuật toán MENTOR
+
+        '''
+        print("{:*<100}".format(''))
+        print("Bước 2: Tìm Nút Backbone và phân cây truy nhập dựa trên thuật toán MENTOR")
+        print("{:*<100}".format(''))
 
     ListBackboneType1 = []
 
@@ -35,6 +38,7 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
     # Tìm MaxCost
     if DeBug:
         print("Tìm MaxCost và R*MaxCost")
+
     MaxCost = 0
     for i in range(len(ListPosition)):
         for j in range(i + 1, len(ListPosition)):
@@ -45,8 +49,9 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
                 MaxCost = dc
 
     RM = RadiusRatio * MaxCost
-    if DeBug:
-        print('MaxCost = {:<8} & R*MaxCost = {:<8}'.format(round(MaxCost,3), round(RM,3)))
+    
+    # if DeBug:
+    print('MaxCost = {:<8} & R*MaxCost = {:<8}'.format(round(MaxCost,3), round(RM,3)))
 
     # Dựng hàm cập nhật các nút đầu cuối cho các nút backbone
 

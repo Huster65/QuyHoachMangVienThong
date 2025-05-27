@@ -228,8 +228,7 @@ def printInitialList(_list):
 
 def printMentorList(_list):
     for i in _list:
-        for j in i:
-            j.printMentor()
+        i.printMentor()
         print("**********")
 
 def printEWList(_list):
@@ -257,7 +256,7 @@ def matplotList(_list, MAX):
     for i in _list:
         xpos.append(i.get_position_x())
         ypos.append(i.get_position_y())
-        npos.append(i.get_name())
+        npos.append(i.get_name() )
 
     for i in range(0, len(_list)):
         plt.text(xpos[i], ypos[i], str(_list[i].get_name()), color='black', size=10, rotation=0.,
@@ -307,6 +306,7 @@ def matplot_esau_william(_list, MAX):
         xpos.append(i.get_position_x())
         ypos.append(i.get_position_y())
         npos.append(i.get_name())
+    plt.title("Esau-wiliam")
 
     plt.text(xpos[0], ypos[0], str(_list[0].get_name()), color='white', size=10, rotation=0.,
              ha="center", va="center",
@@ -330,6 +330,40 @@ def matplot_esau_william(_list, MAX):
 
     plt.plot(xpos[0], ypos[0], 'ro', markersize=10, markerfacecolor='r',
              markeredgewidth=1.5, markeredgecolor=(0, 0, 0, 1))
+
+def matplot_krukal(_list, MAX):
+    xpos = []
+    ypos = []
+    npos = []
+    for i in _list:
+        xpos.append(i.get_position_x())
+        ypos.append(i.get_position_y())
+        npos.append(i.get_name())
+    plt.title("Krukal")
+
+    plt.text(xpos[0], ypos[0], str(_list[0].get_name()), color='white', size=10, rotation=0.,
+             ha="center", va="center",
+             bbox=dict(facecolor=(1., 0., 0.), edgecolor='black', boxstyle='round')
+             )
+    for i in range(1,len(_list)):
+        plt.text(xpos[i], ypos[i], str(_list[i].get_name()), color='black', size=10, rotation=0.,
+                 ha="center", va="center",
+                 bbox=dict(facecolor=(1., 0.8, 0.8), edgecolor='none', boxstyle='round')
+                 )
+
+    for i in range(1, len(_list)):
+        print("_list[i].get_list_connect()")
+        print(_list[i].get_list_connect())
+        for j in _list[i].get_list_connect():
+            matplotconnectpoints(xpos, ypos, i, find_index_node(j, _list), _list)
+
+
+    plt.plot(xpos, ypos, 'ro', markersize=5, markerfacecolor='w',
+             markeredgewidth=1.5, markeredgecolor=(0, 0, 0, 1))
+
+    plt.plot(xpos[0], ypos[0], 'ro', markersize=10, markerfacecolor='r',
+             markeredgewidth=1.5, markeredgecolor=(0, 0, 0, 1))
+
 
 
 def matplot_mentor(_list_mentor,MAX):

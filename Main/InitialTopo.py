@@ -1,4 +1,3 @@
-# Thư viện
 import random
 import math
 import matplotlib.pyplot as plt
@@ -78,20 +77,30 @@ def Global_Init_Topo(MAX,NumNode, DeBug):
 
     for i in range(len(ListPosition)):
         ListPosition[i].set_traffic(sum(TrafficMatrix[ListPosition[i].get_name() - 1]))
+        ListPosition[i].set_weight_of_group(sum(TrafficMatrix[ListPosition[i].get_name() - 1]))
         # ListPosition[i].print()
 
+    name = []
+    weight = []
+    # for i in range(len(ListPosition)):
+    #     print(ListPosition[i].get_name(), ListPosition[i].get_traffic())
+    #     print("***")
+    # print("Node_Name")
+    # print(name)
+    # print("Weight")
+    # print(weight)
+    # print("***")
     # Cập nhật giá EsauWilliam của các nút
 
     # Danh sách các nút có w = 2
-    weightes2 = []
-    for i in range(1,11):
-        weightes2.append(i*8)
-    print(weightes2)
-    for i in ListPosition:
-        if (i.get_name()) in weightes2:
-            i.set_weight_ew(2)
-        else:
-            i.set_weight_ew(1)
+    # weightes2 = []
+    # for i in range(1,11):
+    #     weightes2.append(i*8)
+    # for i in ListPosition:
+    #     if (i.get_name()) in weightes2:
+    #         i.set_weight_ew(2)
+    #     else:
+    #         i.set_weight_ew(1)
 
     if DeBug:
 

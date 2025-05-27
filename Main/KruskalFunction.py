@@ -44,7 +44,8 @@ def check_exits_connect():
 #                 return False
 #     return True
 
-def check_circle_node(node1, node2, tree, w_kk=None):
+def check_circle_node(node1, node2, ListPosition, w_kk=None):
+    
     visited = set()
 
     def dfs(node):
@@ -52,7 +53,7 @@ def check_circle_node(node1, node2, tree, w_kk=None):
             return
         visited.add(node.get_name())
         for neighbor_name in node.get_list_connect():
-            neighbor = next(n for n in tree if n.get_name() == neighbor_name)
+            neighbor = next(n for n in ListPosition if n.get_name() == neighbor_name)
             dfs(neighbor)
 
     # DFS từ node1
@@ -62,18 +63,93 @@ def check_circle_node(node1, node2, tree, w_kk=None):
     if node2.get_name() in visited:
         return False
 
-    # Nếu có ngưỡng w_kk, kiểm tra tổng traffic của nhánh node1 và node2
-    if w_kk is not None:
-        traffic_total = sum(
-            n.get_traffic() for n in tree if n.get_name() in visited
-        )
-        traffic_total += node2.get_traffic()  # nếu nối vào node2
-
-        if traffic_total > w_kk:
-            return False  # không nối nếu vượt quá traffic giới hạn
-
     return True  # hợp lệ để nối
+def find_index_node(m, ListPosition):
+    for i in range(0, len(ListPosition)):
+        if ListPosition[i].get_name() == m:
+            return i
+    return 0
 
+def total_weight(ListWeight):
+    sum = 0 
+    for i in len(ListWeight):
+        sum += ListWeight.get_traffic()
+    return sum
+
+
+def check_limit_weight(next_connect, oneself, ListPosition, w_kk):
+    if(next_connect == ListPosition[0].get_name() or oneself == ListPosition[0].get_name()):
+        return True
+    node_next_connect = ListPosition[find_index_node(next_connect, ListPosition)]
+    node_oneself = ListPosition[find_index_node(oneself, ListPosition)]
+    sum = node_next_connect.get_weight_of_group() + node_oneself.get_weight_of_group()
+    if(sum <= w_kk):
+        return True
+    return False
+
+# def check_limit_weight(next_connect, oneself, ListPosition, w_kk, check_weight_arr):
+    
+#     check_together = True
+#     check_node1_in_weight_arr = False
+#     check_node2_in_weight_arr = False
+#     total_weight = next_connect.get_traffic() + oneself.get_traffic()
+#     for i in check_weight_arr:
+#         for j in len(i):
+#             print("vao day roi nhe")
+#             if(j == next_connect.get_name() or j == oneself.get_name()):
+#                 check_together = False
+#                 break
+#     print("check_together", check_together)
+#     print("total_weight", total_weight)
+#     if(check_together == False and total_weight < w_kk):
+#         check_weight_arr.append([next_connect.get_name()])
+#         print("check_weight_arr", check_weight_arr[0])
+#         for i in check_weight_arr:
+#             for j in len(i):
+#                 if(j == next_connect.get_name()):
+#                     check_weight_arr[i].append(oneself.get_name())
+#     for i in check_weight_arr:
+#         for j in len(i):
+#             if(j == next_connect.get_name()):
+#                 check_node1_in_weight_arr = True
+#             elif(j == oneself.get_name()):
+#                 check_node2_in_weight_arr = True
+#     if( check_node1_in_weight_arr and check_node2_in_weight_arr):
+#         index_arr_1 = 0
+#         index_arr_2 = 0
+#         for i in check_weight_arr:
+#             for j in check_weight_arr:
+#                 if(j == next_connect.get_name()):
+#                     index_arr_1 = i
+#                 elif(j == oneself.get_name()):
+#                     index_arr_2 = i
+#         total_weight = total_weight(check_weight_arr[index_arr_1]) + total_weight(check_weight_arr[index_arr_2])
+#         if(total_weight <= w_kk):
+#             check_weight_arr.extend(check_weight_arr[index_arr_1], check_weight_arr[index_arr_2])
+#             return True
+#     if ( check_node1_in_weight_arr == True and check_node2_in_weight_arr == False):
+#         index_arr_1 = 0
+#         for i in check_weight_arr:
+#             for j in check_weight_arr:
+#                 if(j == next_connect.get_name()):
+#                     index_arr_1 = i
+#         total_weight = total_weight(check_weight_arr[index_arr_1]) + oneself.get_traffic()
+#         if(total_weight <= w_kk):
+#             check_weight_arr[index_arr_1].append(oneself.get_name())
+#             return True
+#     elif( check_node1_in_weight_arr == False and check_node2_in_weight_arr == True):
+#         index_arr_2 = 0
+#         for i in check_weight_arr:
+#             for j in check_weight_arr:
+#                 if(j == oneself.get_name()):
+#                     index_arr_2 = i
+#         total_weight = total_weight(check_weight_arr[index_arr_2]) + next_connect.get_traffic()
+#         if(total_weight <= w_kk):
+#             check_weight_arr[index_arr_2].append(next_connect.get_name())
+#             return True
+#     return False    
+    
+        
 
 
 def calc_distance_2Dpoint(a, b):
@@ -104,3 +180,85 @@ def check_sum_weight_node(node1, node2, w_kk):
     if(sum > w_kk):
         return False
     return True
+
+def updateWG(des, src, ListPosition, weightGroup, DeBug):
+    index_des = find_index_node(des, ListPosition)
+    index_src = find_index_node(src, ListPosition)
+    node_des = ListPosition[index_des]
+    node_src = ListPosition[index_src]
+    sum_w = node_des.get_weight_of_group() + node_src.get_weight_of_group()
+    sum_size = node_des.get_group_size() + node_src.get_group_size()
+    node_des.set_weight_of_group(sum_w)
+    node_des.set_group_size(sum_size)
+
+    def check_node_exist(father):
+        for i in weightGroup:
+            for j in range(0, len(i)):
+                if i[j] == father:
+                    return True
+        return False
+
+    def del_node(m_father,m_child):
+        for i in weightGroup:
+            tmp_a = False
+            tmp_b = False
+            for j in i:
+                if j == m_child:
+                    tmp_a = True
+                if j == m_father:
+                    tmp_b = True
+            if tmp_a and (not tmp_b):
+                weightGroup.remove(i)
+    # Thêm group source vào group des
+
+    def update_node(m_father, m_child):
+        index_m_child = find_index_node(m_child, ListPosition)
+        index_m_father = find_index_node(m_father, ListPosition)
+
+        #if DeBug:
+            #print('Check destination group exist: ', m_father, check_node_exist(m_father))
+            #print('Check source group exist: ', m_child, check_node_exist(m_child))
+        if check_node_exist(m_father) == False:
+            weightGroup.append([m_father])
+            update_node(m_father, m_child)
+        elif check_node_exist(m_child) == False:
+            weightGroup.append([m_child])
+            update_node(m_father, m_child)
+        else:
+            k = []
+
+            for i in weightGroup:
+                for j in range(0, len(i)):
+                    # Thêm nút vào group mới
+                    if i[j] == m_child:
+                        k = i
+            for i in weightGroup:
+                for j in range(0, len(i)):
+                    # Thêm nút vào group mới
+                    if i[j] == m_father:
+                        i.extend(k)
+                        for a in i:
+                            ListPosition[find_index_node(a, ListPosition)].set_weight_of_group(sum_w)
+                            ListPosition[find_index_node(a, ListPosition)].set_group_size(sum_size)
+                            ListPosition[find_index_node(a, ListPosition)].set_cost_to_center(node_des.get_cost_to_center())
+                            ListPosition[find_index_node(a, ListPosition)].set_group_node_to_center(node_des.get_group_node_to_center())
+
+    update_node(des, src)
+    del_node(des,src)
+    if DeBug:
+        for i in weightGroup:
+            for j in range(0, len(i)):
+                print(i[j], end=' ')
+            print()
+            
+def check_limit_size(next_connect,oneself, Limit, ListPosition):
+    if Limit == 0:
+        return True
+    else:
+        node_next_connect = ListPosition[find_index_node(next_connect, ListPosition)]
+        node_oneself = ListPosition[find_index_node(oneself, ListPosition)]
+        sum = node_next_connect.get_group_size()+node_oneself.get_group_size()
+        if sum <= Limit:
+            return True
+        else:
+            return False
