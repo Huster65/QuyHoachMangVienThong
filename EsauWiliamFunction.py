@@ -100,10 +100,10 @@ def updateWG(des, src, ListPosition, weightGroup, DeBug):
             print()
 
 def check_limit_weight(next_connect, oneself, ListPosition):
-            node_next_connect = ListPosition[find_index_node(next_connect, ListPosition)]
-            node_oneself = ListPosition[find_index_node(oneself, ListPosition)]
-            sum = node_next_connect.get_weight_of_group() + node_oneself.get_weight_of_group()
-            return sum
+    node_next_connect = ListPosition[find_index_node(next_connect, ListPosition)]
+    node_oneself = ListPosition[find_index_node(oneself, ListPosition)]
+    sum = node_next_connect.get_weight_of_group() + node_oneself.get_weight_of_group()
+    return sum
 
 def check_limit_size(next_connect,oneself, Limit, ListPosition):
     if Limit == 0:

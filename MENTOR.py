@@ -24,8 +24,6 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
 
     ListBackboneType1 = []
 
-    ListPosition = sorted(ListPosition, key=lambda node: node.get_traffic(), reverse=True)
-
     for i in ListPosition:
         if i.get_traffic() / C > w:
             # i.print()
@@ -52,8 +50,8 @@ def MenTor(ListPosition,MAX,C,w,RadiusRatio,Limit,DeBug):
 
     RM = RadiusRatio * MaxCost
     
-    if DeBug:
-        print('MaxCost = {:<8} & R*MaxCost = {:<8}'.format(round(MaxCost,3), round(RM,3)))
+    # if DeBug:
+    print('MaxCost = {:<8} & R*MaxCost = {:<8}'.format(round(MaxCost,3), round(RM,3)))
 
     # Dựng hàm cập nhật các nút đầu cuối cho các nút backbone
 

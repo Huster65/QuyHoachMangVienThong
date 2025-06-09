@@ -228,8 +228,7 @@ def printInitialList(_list):
 
 def printMentorList(_list):
     for i in _list:
-        for j in i:
-            j.printMentor()
+        i.printMentor()
         print("**********")
 
 def printEWList(_list):
@@ -257,7 +256,7 @@ def matplotList(_list, MAX):
     for i in _list:
         xpos.append(i.get_position_x())
         ypos.append(i.get_position_y())
-        npos.append(i.get_name())
+        npos.append(i.get_name() )
 
     for i in range(0, len(_list)):
         plt.text(xpos[i], ypos[i], str(_list[i].get_name()), color='black', size=10, rotation=0.,
